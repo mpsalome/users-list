@@ -12,7 +12,6 @@ function App() {
   const getUsers = async () => {
     const { data } = await UserService.getUsers();
 
-    console.log(data);
     dispatch(loadUsers(data));
   };
 
