@@ -4,27 +4,88 @@ import Button from 'react-bootstrap/Button';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useDispatch } from 'react-redux';
 import { addUser } from '../store/actions/users';
-import { useNavigate   } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export const NewUser = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({
-    name: '',
-    username: '',
-    email: '',
+    name: undefined,
+    username: undefined,
+    email: undefined,
     address: {
-      city: '',
+      city: undefined,
     },
   });
+  const [errors, setErrors] = useState({});
 
-  const navigate  = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(addUser(formData));
-    navigate("/");
+    if (handleValidation()) {
+      dispatch(addUser(formData));
+      navigate('/');
+    } 
   };
 
-  const dispatch = useDispatch();
+  const handleValidation = () => {
+    let fields = formData;
+    let currentErrors = {};
+    let formIsValid = true;
+
+    //Name
+    if (!fields["name"]) {
+      formIsValid = false;
+      currentErrors["name"] = "Cannot be empty";
+    }
+
+    if (typeof fields["name"] !== "undefined") {
+      if (!fields["name"].match(/^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$/)) {
+        formIsValid = false;
+        currentErrors["name"] = "Only letters";
+      }
+    }
+
+    //Email
+    if (!fields["email"]) {
+      formIsValid = false;
+      currentErrors["email"] = "Cannot be empty";
+    }
+
+    if (typeof fields["email"] !== "undefined") {
+      let lastAtPos = fields["email"].lastIndexOf("@");
+      let lastDotPos = fields["email"].lastIndexOf(".");
+
+      if (
+        !(
+          lastAtPos < lastDotPos &&
+          lastAtPos > 0 &&
+          fields["email"].indexOf("@@") === -1 &&
+          lastDotPos > 2 &&
+          fields["email"].length - lastDotPos > 2
+        )
+      ) {
+        formIsValid = false;
+        currentErrors["email"] = "Email is not valid";
+      }
+    }
+
+    //Username
+    if (!fields["username"]) {
+      formIsValid = false;
+      currentErrors["username"] = "Cannot be empty";
+    }
+
+    //City 
+    if (!fields.address["city"]) {
+      formIsValid = false;
+      currentErrors["city"] = "Cannot be empty";
+    }
+
+    setErrors({...currentErrors});
+    return formIsValid;
+  }
+
 
   return (
     <div className="wrapper">
@@ -36,6 +97,7 @@ export const NewUser = () => {
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
           />
+        <span className="errorLabel">{errors["name"]}</span>
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="username">
@@ -47,6 +109,7 @@ export const NewUser = () => {
               setFormData({ ...formData, username: e.target.value })
             }
           />
+        <span className="errorLabel">{errors["username"]}</span>
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="email">
@@ -58,6 +121,7 @@ export const NewUser = () => {
               setFormData({ ...formData, email: e.target.value })
             }
           />
+        <span className="errorLabel">{errors["email"]}</span>
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="city">
@@ -69,8 +133,8 @@ export const NewUser = () => {
               setFormData({ ...formData, address: { city: e.target.value } })
             }
           />
+        <span className="errorLabel">{errors["city"]}</span>
         </Form.Group>
-
         <Button variant="primary" type="submit">
           Submit
         </Button>

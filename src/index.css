@@ -21,3 +21,8 @@ code {
 .wrapper h2 {
   display: inline-block;
 }
+
+.errorLabel {
+  color: #bd0000;
+  font-size: .8em;
+}
