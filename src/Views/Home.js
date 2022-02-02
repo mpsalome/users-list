@@ -1,5 +1,8 @@
+import { UserTable } from '../Components/UserTable';
+import { useSelector } from 'react-redux';
+
 export const Home = () => {
-  
-    return <p>Home</p>;
-  };
-  
+  const users = useSelector((state) => state.users.users);
+
+  return <UserTable users={users} />;
+};
