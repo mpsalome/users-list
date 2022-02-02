@@ -7,11 +7,15 @@ const initialState = {
 export const users = (state = initialState, action) => {
   switch (action.type) {
     case ADD_USER:
+      let newId = 1;
+      if (state.users.length !== 0)
+        newId = state.users[state.users.length - 1].id + 1;
+
       return {
         ...state,
-        users: state.users.concat({id: state.users[state.users.length - 1].id + 1, ...action.payload}),
+        users: state.users.concat({ id: newId, ...action.payload }),
       };
-    case LOAD_USERS: 
+    case LOAD_USERS:
       return {
         ...state,
         users: state.users.concat(action.payload),
@@ -19,7 +23,9 @@ export const users = (state = initialState, action) => {
     case EDIT_USER:
       return {
         ...state,
-        users: state.users.map(user => user.id === action.payload.id ? { ...action.payload } : user)
+        users: state.users.map((user) =>
+          user.id === action.payload.id ? { ...action.payload } : user
+        ),
       };
     case REMOVE_USER:
       return {
