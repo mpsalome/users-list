@@ -1,6 +1,5 @@
 import Table from 'react-bootstrap/Table';
 import { UserLine } from '../Components/UserLine';
-import { LinkContainer } from 'react-router-bootstrap';
 import { UserAction } from './UserAction';
 
 export const UserTable = ({ users }) => {
