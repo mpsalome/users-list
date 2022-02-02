@@ -1,7 +1,7 @@
 import Table from 'react-bootstrap/Table';
 import { UserLine } from '../Components/UserLine';
 import { UserAction } from './UserAction';
-import Alert from 'react-bootstrap/Alert';
+import { CustomAlert } from '../Components/CustomAlert';
 
 export const UserTable = ({ users }) => {
   return (
@@ -12,16 +12,14 @@ export const UserTable = ({ users }) => {
           action={{ type: 'add', text: 'Add new', variant: 'primary' }}
         />
       </div>
-      {users.length === 0 ? (
-        <Alert variant="danger">
-          <Alert.Heading>Oh snap!</Alert.Heading>
-          <p>
-            Looks like all users were deleted. Why don't you try adding a new
-            one?
-          </p>
-        </Alert>
-      ) : (
-        <div className="wrapper">
+      <div className="wrapper">
+        {users.length === 0 ? (
+          <CustomAlert
+            title={'Oh snap!'}
+            variant={'danger'}
+            message={`Looks like all users were deleted. Why don't you try adding a new one?`}
+          />
+        ) : (
           <Table striped bordered hover responsive>
             <thead>
               <tr>
@@ -40,8 +38,8 @@ export const UserTable = ({ users }) => {
               ))}
             </tbody>
           </Table>
-        </div>
-      )}
+        )}
+      </div>
     </>
   );
 };
