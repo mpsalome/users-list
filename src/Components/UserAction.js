@@ -1,20 +1,24 @@
 import Button from 'react-bootstrap/Button';
-import { useDispatch } from 'react-redux';
-import { removeUser } from '../store/actions/users';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { UserModal } from '../Components/UserModal';
 
 export const UserAction = ({ action, userId }) => {
   const navigate = useNavigate();
+  const [show, setShow] = useState(false);
+
+  const handleShow = () => setShow(true);
+  const handleClose = (data) => setShow(data);
 
   const executeAction = () => {
     switch (action.type) {
       case 'delete':
-        dispatch(removeUser(userId));
+        handleShow();
         break;
-      case 'add': 
+      case 'add':
         navigate('/add');
         break;
-      case 'edit': 
+      case 'edit':
         navigate(`/edit/${userId}`);
         break;
       default:
@@ -22,11 +26,12 @@ export const UserAction = ({ action, userId }) => {
     }
   };
 
-  const dispatch = useDispatch();
-
   return (
-    <Button variant={action.variant} size="md" onClick={executeAction}>
-      {action.text}
-    </Button>
+    <>
+      <Button variant={action.variant} size="md" onClick={executeAction}>
+        {action.text}
+      </Button>
+      <UserModal show={show} func={handleClose} userId={userId}/>
+    </>
   );
 };
