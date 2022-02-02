@@ -3,10 +3,10 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useDispatch } from 'react-redux';
-import { addUser } from '../store/actions/users';
+import { addUser, editUser } from '../store/actions/users';
 import { useNavigate } from 'react-router-dom';
 
-export const UserForm = ({ user }) => {
+export const UserForm = ({ user, action }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
@@ -26,13 +26,17 @@ export const UserForm = ({ user }) => {
 
   const setData = () => {
       if (user) {
-        setFormData(user)
+        setFormData(...user)
       }
   }
   const handleSubmit = (e) => {
     e.preventDefault();
     if (handleValidation()) {
-      dispatch(addUser(formData));
+      if (action==="add") {
+        dispatch(addUser(formData));
+      } else if (action==="edit"){
+        dispatch(editUser(formData));
+      }
       navigate('/');
     } 
   };

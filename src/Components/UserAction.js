@@ -14,6 +14,9 @@ export const UserAction = ({ action, userId }) => {
       case 'add': 
         navigate('/add');
         break;
+      case 'edit': 
+        navigate(`/edit/${userId}`);
+        break;
       default:
         break;
     }

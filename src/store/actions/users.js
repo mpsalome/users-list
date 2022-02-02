@@ -14,7 +14,7 @@ export const loadUsers = (payload) => ({
 });
 
 export const editUser = (payload) => ({
-  type: ADD_USER,
+  type: EDIT_USER,
   payload,
 });
 

@@ -19,7 +19,7 @@ export const users = (state = initialState, action) => {
     case EDIT_USER:
       return {
         ...state,
-        users: state.users,
+        users: state.users.map(user => user.id === action.payload.id ? { ...action.payload } : user)
       };
     case REMOVE_USER:
       return {
