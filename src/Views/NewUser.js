@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useDispatch } from 'react-redux';
 import { addUser } from '../store/actions/users';
+import { useNavigate   } from 'react-router-dom';
 
 export const NewUser = () => {
   const [formData, setFormData] = useState({
@@ -15,10 +16,12 @@ export const NewUser = () => {
     },
   });
 
+  const navigate  = useNavigate();
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
     dispatch(addUser(formData));
+    navigate("/");
   };
 
   const dispatch = useDispatch();
