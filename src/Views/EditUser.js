@@ -11,7 +11,10 @@ export const EditUser = () => {
 
   return (
     <>
-      <UserForm user={user} action={"edit"} />
+      <div className="wrapper">
+        <h2>Edit User</h2>
+      </div>
+      <UserForm user={user} action={'edit'} />
     </>
   );
 };

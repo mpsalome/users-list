@@ -13,15 +13,26 @@ code {
 }
 
 .wrapper {
-  display: flex;
-  justify-content: space-between;
   border: 1px solid #dee2e6;
   padding: 25px;
 }
+
 .wrapper h2 {
   display: inline-block;
 }
 
+.buttonWrapper {
+  display: flex;
+    justify-content: flex-end;
+}
+
+.buttonWrapper button:nth-child(2) {
+  margin-left: 20px;
+}
+.tableTitle {
+  display: flex;
+  justify-content: space-between;
+}
 .errorLabel {
   color: #bd0000;
   font-size: .8em;

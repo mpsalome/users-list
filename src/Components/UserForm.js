@@ -166,14 +166,16 @@ export const UserForm = ({ user, action }) => {
           />
           <span className="errorLabel">{errors['city']}</span>
         </Form.Group>
-        <Button variant="primary" type="submit">
-          Submit
-        </Button>
+        <div className='buttonWrapper'>
         <LinkContainer to="/">
-          <Button variant="secondary" size="md">
+          <Button variant="outline-danger" size="md">
             Cancel
           </Button>
         </LinkContainer>
+        <Button variant="success" type="submit">
+          Submit
+        </Button>
+        </div>
       </Form>
     </div>
   );

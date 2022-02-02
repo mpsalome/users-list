@@ -5,7 +5,7 @@ import { UserAction } from './UserAction';
 export const UserTable = ({ users }) => {
   return (
     <>
-     <div className="wrapper">
+     <div className="wrapper tableTitle">
         <h2>User list</h2>
         <UserAction action={ {type: 'add', text: 'Add new', variant: 'primary'} } />
       </div>
