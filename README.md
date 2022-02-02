@@ -1,6 +1,8 @@
-# Getting Started with Create React App
+# React Users List
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Link to see the application 
+
+https://salome-user-list.netlify.app/
 
 ## Available Scripts
 
